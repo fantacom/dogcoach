@@ -1,6 +1,6 @@
 import { Text as RNText, type TextProps } from 'react-native';
 
-type Variant = 'title' | 'subtitle' | 'body' | 'caption' | 'error';
+type Variant = 'title' | 'subtitle' | 'body' | 'caption' | 'error' | 'label';
 
 const variants: Record<Variant, string> = {
   title: 'text-3xl font-bold text-ink dark:text-ink-dark',
@@ -8,6 +8,8 @@ const variants: Record<Variant, string> = {
   body: 'text-base leading-6 text-ink dark:text-ink-dark',
   caption: 'text-sm text-muted dark:text-muted-dark',
   error: 'text-sm text-danger dark:text-danger-dark',
+  // Ohne Farbe: Farbe kommt vom Aufrufer (z. B. Button), damit keine Tailwind-Klassen kollidieren.
+  label: 'text-base font-semibold',
 };
 
 type Props = TextProps & { variant?: Variant; className?: string };

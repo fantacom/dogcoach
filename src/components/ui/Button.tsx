@@ -44,7 +44,9 @@ export function Button({
       {loading ? (
         <ActivityIndicator color={variant === 'primary' ? '#FFFFFF' : undefined} />
       ) : (
-        <Text className={`text-base font-semibold ${label[variant]}`}>{title}</Text>
+        <Text variant="label" className={label[variant]}>
+          {title}
+        </Text>
       )}
     </Pressable>
   );
