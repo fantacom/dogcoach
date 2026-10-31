@@ -1,0 +1,48 @@
+{
+  "common": {
+    "loading": "Lädt …",
+    "error": "Da ist etwas schiefgelaufen. Bitte versuch es noch einmal."
+  },
+  "auth": {
+    "title": "Willkommen",
+    "subtitle": "Melde dich mit deiner E-Mail-Adresse an. Wir schicken dir einen Link – ganz ohne Passwort.",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "du@beispiel.de",
+    "emailInvalid": "Bitte gib eine gültige E-Mail-Adresse ein.",
+    "sendLink": "Anmelde-Link senden",
+    "linkSentTitle": "Schau in dein Postfach",
+    "linkSentBody": "Wir haben dir eine E-Mail an {{email}} geschickt. Tipp auf den Link darin – oder gib den 6-stelligen Code hier ein.",
+    "codeLabel": "Code aus der E-Mail",
+    "codeInvalid": "Der Code hat 6 Ziffern.",
+    "verifyCode": "Code bestätigen",
+    "changeEmail": "Andere E-Mail-Adresse verwenden",
+    "callbackTitle": "Du wirst angemeldet …",
+    "callbackFailed": "Der Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.",
+    "backToLogin": "Zurück zur Anmeldung",
+    "signOut": "Abmelden"
+  },
+  "tabs": {
+    "today": "Heute",
+    "analysis": "Analyse",
+    "community": "Community",
+    "myDog": "Mein Hund"
+  },
+  "screens": {
+    "today": {
+      "title": "Heute",
+      "placeholder": "Hier siehst du bald die Phase deines Hundes, deine Tipps und die heutige Aufgabe."
+    },
+    "analysis": {
+      "title": "Analyse",
+      "placeholder": "Hier lädst du bald Fotos und Videos hoch und siehst deine Einschätzungen."
+    },
+    "community": {
+      "title": "Community",
+      "placeholder": "Hier kannst du bald Fragen stellen und anderen helfen."
+    },
+    "myDog": {
+      "title": "Mein Hund",
+      "placeholder": "Hier legst du bald das Profil deines Hundes an."
+    }
+  }
+}
