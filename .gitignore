@@ -41,3 +41,12 @@ example
 # generated native folders
 /ios
 /android
+
+# Umgebungsvariablen (nur .env.example wird eingecheckt)
+.env
+.env.*
+!.env.example
+
+# Supabase CLI
+supabase/.temp/
+supabase/.branches/
