@@ -18,13 +18,13 @@ npx expo start
 
 ## Befehle
 
-| Befehl              | Zweck                               |
-| ------------------- | ----------------------------------- |
-| `npm start`         | Dev-Server (QR-Code für Expo Go)    |
-| `npm run web`       | Im Browser öffnen                   |
-| `npm run check`     | Typecheck + Lint + Prettier + Tests |
-| `npm test`          | Jest                                |
-| `npm run format`    | Prettier schreibt alle Dateien      |
+| Befehl           | Zweck                               |
+| ---------------- | ----------------------------------- |
+| `npm start`      | Dev-Server (QR-Code für Expo Go)    |
+| `npm run web`    | Im Browser öffnen                   |
+| `npm run check`  | Typecheck + Lint + Prettier + Tests |
+| `npm test`       | Jest                                |
+| `npm run format` | Prettier schreibt alle Dateien      |
 
 ## Struktur
 
