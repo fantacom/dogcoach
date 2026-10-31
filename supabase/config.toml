@@ -246,14 +246,15 @@ otp_expiry = 3600
 # sender_name = "Admin"
 
 # Deutsche Vorlagen mit Link UND 6-stelligem Code ({{ .Token }}) für Expo Go.
-# "confirmation" geht an neue Nutzer, "magic_link" an bestehende.
-[auth.email.template.confirmation]
-subject = "Dein Anmelde-Code"
-content_path = "./supabase/templates/magic_link.html"
-
-[auth.email.template.magic_link]
-subject = "Dein Anmelde-Code"
-content_path = "./supabase/templates/magic_link.html"
+# DEAKTIVIERT: Supabase erlaubt eigene Vorlagen im Free-Tarif nur mit eigenem SMTP-Server
+# (Fehler 400 bei config push). Aktivieren, sobald [auth.email.smtp] eingerichtet ist.
+# [auth.email.template.confirmation]
+# subject = "Dein Anmelde-Code"
+# content_path = "./supabase/templates/magic_link.html"
+#
+# [auth.email.template.magic_link]
+# subject = "Dein Anmelde-Code"
+# content_path = "./supabase/templates/magic_link.html"
 
 # Uncomment to customize email template
 # [auth.email.template.invite]
