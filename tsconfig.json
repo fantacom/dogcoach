@@ -8,10 +8,19 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@/assets/*": ["./assets/*"]
+      "@/assets/*": ["./assets/*"],
+      "@shared/*": ["./supabase/functions/_shared/logic/*"]
     },
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "allowImportingTsExtensions": true
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts"],
-  "exclude": ["node_modules", "supabase/functions"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "nativewind-env.d.ts",
+    "supabase/functions/_shared/logic/**/*.ts"
+  ],
+  "exclude": ["node_modules", "supabase/functions/*/index.ts", "supabase/functions/_shared/*.ts"]
 }

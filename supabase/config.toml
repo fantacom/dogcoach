@@ -426,3 +426,43 @@ enabled = true
 # formatted with uppercase keywords, indent 2, max width 180, trailing commas,
 # and column/key alignment. Set to "null" to emit raw, unformatted SQL.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":180,\"commaStyle\":\"trailing\"}"
+
+# ---------------------------------------------------------------------------
+# Edge Functions (Deploy ohne Docker: npx supabase functions deploy --use-api)
+# Cron-/Webhook-Funktionen prüfen ihr eigenes Secret → verify_jwt = false.
+# Prompts werden als statische Dateien mitgeliefert.
+# ---------------------------------------------------------------------------
+[functions.analyze-media]
+verify_jwt = true
+import_map = "./functions/deno.json"
+static_files = ["./functions/_shared/prompts/*.md"]
+
+[functions.forum-post]
+verify_jwt = true
+import_map = "./functions/deno.json"
+
+[functions.delete-account]
+verify_jwt = true
+import_map = "./functions/deno.json"
+
+[functions.export-data]
+verify_jwt = true
+import_map = "./functions/deno.json"
+
+[functions.generate-coach-tips]
+verify_jwt = false
+import_map = "./functions/deno.json"
+static_files = ["./functions/_shared/prompts/*.md"]
+
+[functions.send-reminders]
+verify_jwt = false
+import_map = "./functions/deno.json"
+
+[functions.forum-ai-reply]
+verify_jwt = false
+import_map = "./functions/deno.json"
+static_files = ["./functions/_shared/prompts/*.md"]
+
+[functions.revenuecat-webhook]
+verify_jwt = false
+import_map = "./functions/deno.json"

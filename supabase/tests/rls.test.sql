@@ -201,3 +201,20 @@ select tests.expect((select count(*) from public.breeds) >= 40, 'mind. 40 Rassen
 select tests.expect((select count(*) from public.dev_phases) = 24, '6 Phasen x 4 Größen');
 select tests.expect((select count(*) from public.breeds where reviewed_by is not null) = 0, 'Rassen als Entwurf markiert');
 select tests.expect((select count(*) from public.knowledge_articles where reviewed_by is not null) = 0, 'Artikel als Entwurf');
+
+-- Service-Funktionen: Antwortgarantie und Tipp-Auswahl
+insert into auth.users (id, email) values ('00000000-0000-0000-0000-0000000000c1', 'c@test.de');
+insert into public.forum_posts (id, author_id, category, title, body, created_at) values
+  ('30000000-0000-0000-0000-0000000000c1', '00000000-0000-0000-0000-0000000000c1', 'training', 'Alte Frage', 'Seit Stunden keine Antwort hier.', now() - interval '7 hours'),
+  ('30000000-0000-0000-0000-0000000000c2', '00000000-0000-0000-0000-0000000000c1', 'training', 'Neue Frage', 'Gerade erst gestellt, bitte warten.', now() - interval '1 hour');
+select tests.expect((select array_agg(id) from public.posts_needing_ai_reply(10)) = array['30000000-0000-0000-0000-0000000000c1'::uuid],
+  'nur unbeantwortete Fragen älter als forum_ai_reply_after_hours');
+insert into public.dogs (id, owner_id, name) values ('10000000-0000-0000-0000-0000000000c1', '00000000-0000-0000-0000-0000000000c1', 'Rex');
+select tests.expect(exists (select 1 from public.dogs_due_for_tips(now() - interval '20 hours', 10) where id = '10000000-0000-0000-0000-0000000000c1'),
+  'Hund ohne Tipp ist fällig');
+select tests.as_user('00000000-0000-0000-0000-0000000000c1');
+do $$ begin
+  perform public.posts_needing_ai_reply(1);
+  raise exception 'TEST FEHLGESCHLAGEN: Service-Funktion für Nutzer aufrufbar';
+exception when insufficient_privilege then null; end $$;
+reset role;
