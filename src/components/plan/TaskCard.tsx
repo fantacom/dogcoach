@@ -19,7 +19,10 @@ export function TaskCard({ task, onDone, onUndo, busy, compact }: Props) {
   return (
     <Card>
       <View className="flex-row flex-wrap items-center justify-between gap-2">
-        <Badge label={t('plan.day', { day: task.day_index + 1 })} tone={task.done_at ? 'primary' : 'neutral'} />
+        <Badge
+          label={t('plan.day', { day: task.day_index + 1 })}
+          tone={task.done_at ? 'primary' : 'neutral'}
+        />
         <Text variant="caption">
           {formatDateTime(task.scheduled_at)}
           {s.duration_min ? ` · ${t('plan.minutes', { count: s.duration_min })}` : ''}
@@ -35,8 +38,12 @@ export function TaskCard({ task, onDone, onUndo, busy, compact }: Props) {
           ))}
         </View>
       ) : null}
-      {!compact && task.success_criteria ? <Text>{`${t('plan.success')}: ${task.success_criteria}`}</Text> : null}
-      {!compact && s.typical_mistake ? <Text variant="caption">{`${t('plan.mistake')}: ${s.typical_mistake}`}</Text> : null}
+      {!compact && task.success_criteria ? (
+        <Text>{`${t('plan.success')}: ${task.success_criteria}`}</Text>
+      ) : null}
+      {!compact && s.typical_mistake ? (
+        <Text variant="caption">{`${t('plan.mistake')}: ${s.typical_mistake}`}</Text>
+      ) : null}
       {task.done_at ? (
         <View className="gap-2">
           {task.rating ? <Badge label={t(`plan.ratings.${task.rating}`)} tone="primary" /> : null}
@@ -47,7 +54,10 @@ export function TaskCard({ task, onDone, onUndo, busy, compact }: Props) {
           label={t('plan.rate')}
           value={null}
           onChange={(r) => onDone(r)}
-          options={(['works', 'partial', 'not_yet'] as const).map((v) => ({ value: v, label: t(`plan.ratings.${v}`) }))}
+          options={(['works', 'partial', 'not_yet'] as const).map((v) => ({
+            value: v,
+            label: t(`plan.ratings.${v}`),
+          }))}
         />
       )}
     </Card>

@@ -90,7 +90,12 @@
     "weight": "Gewicht in kg",
     "weightInvalid": "Bitte gib ein Gewicht zwischen 0,5 und 120 kg ein.",
     "origin": "Herkunft",
-    "origins": { "breeder": "Züchter", "shelter": "Tierschutz", "foreign_rescue": "Auslandstierschutz", "unknown": "Unbekannt" },
+    "origins": {
+      "breeder": "Züchter",
+      "shelter": "Tierschutz",
+      "foreign_rescue": "Auslandstierschutz",
+      "unknown": "Unbekannt"
+    },
     "environment": "Lebensumfeld",
     "areas": { "city": "Stadt", "suburb": "Stadtrand", "country": "Land" },
     "garden": "Garten",
@@ -114,26 +119,138 @@
     "meaning": "Was das für dich bedeutet",
     "scale": "{{value}} von 5",
     "questions": {
-      "energy_home": { "q": "Wie verhält sich {{name}} zu Hause?", "options": { "calm": "Meist ruhig und entspannt", "moderate": "Mal ruhig, mal aktiv", "restless": "Ständig in Bewegung, kommt schwer zur Ruhe" } },
-      "energy_walk": { "q": "Wie lange kann {{name}} draußen aktiv sein?", "options": { "short": "Nach kurzer Zeit genug", "hour": "Etwa eine Stunde", "never_tired": "Scheint nie müde zu werden" } },
-      "strangers": { "q": "Wie reagiert {{name}} auf fremde Menschen?", "options": { "friendly": "Freundlich und offen", "reserved": "Zurückhaltend, taut auf", "avoids": "Weicht aus", "barks_growls": "Bellt oder knurrt" } },
-      "other_dogs": { "q": "Wie ist {{name}} mit anderen Hunden (ohne Leine)?", "options": { "plays": "Spielt gern", "selective": "Mag manche, andere nicht", "ignores": "Ignoriert sie meist", "tense": "Ist angespannt oder unsicher" } },
-      "leash_dogs": { "q": "Und an der Leine bei Hundebegegnungen?", "options": { "relaxed": "Bleibt entspannt", "pulls_towards": "Zieht hin", "barks_lunges": "Bellt oder springt in die Leine" } },
-      "noises": { "q": "Wie reagiert {{name}} auf laute Geräusche (z. B. Knall, Gewitter)?", "options": { "unbothered": "Kaum Reaktion", "startles_recovers": "Erschrickt, beruhigt sich schnell", "panics": "Hat große Angst, braucht lange" } },
-      "new_places": { "q": "An neuen Orten ist {{name}} …", "options": { "curious": "neugierig", "cautious": "vorsichtig", "stressed": "sichtbar gestresst" } },
-      "wildlife": { "q": "Wenn {{name}} Wild, Katzen oder Vögel sieht …", "options": { "no_interest": "kaum Interesse", "watches": "schaut gebannt", "chases": "will hinterher" } },
-      "moving_things": { "q": "Jogger, Radfahrer oder Bälle …", "options": { "ignores": "sind egal", "interested": "interessieren", "must_chase": "müssen verfolgt werden" } },
-      "alone": { "q": "Wenn {{name}} allein bleibt …", "options": { "fine": "bleibt entspannt", "unhappy_short": "ist kurz unruhig", "cannot": "bellt, jault oder zerstört" } },
-      "follows": { "q": "Folgt {{name}} dir zu Hause von Raum zu Raum?", "options": { "independent": "Selten", "sometimes": "Manchmal", "everywhere": "Fast immer" } },
-      "recall_off_leash": { "q": "Ohne Leine ist {{name}} …", "options": { "stays_close": "immer in meiner Nähe", "comes_mostly": "meist abrufbar", "own_way": "gern auf eigenen Wegen" } }
+      "energy_home": {
+        "q": "Wie verhält sich {{name}} zu Hause?",
+        "options": {
+          "calm": "Meist ruhig und entspannt",
+          "moderate": "Mal ruhig, mal aktiv",
+          "restless": "Ständig in Bewegung, kommt schwer zur Ruhe"
+        }
+      },
+      "energy_walk": {
+        "q": "Wie lange kann {{name}} draußen aktiv sein?",
+        "options": {
+          "short": "Nach kurzer Zeit genug",
+          "hour": "Etwa eine Stunde",
+          "never_tired": "Scheint nie müde zu werden"
+        }
+      },
+      "strangers": {
+        "q": "Wie reagiert {{name}} auf fremde Menschen?",
+        "options": {
+          "friendly": "Freundlich und offen",
+          "reserved": "Zurückhaltend, taut auf",
+          "avoids": "Weicht aus",
+          "barks_growls": "Bellt oder knurrt"
+        }
+      },
+      "other_dogs": {
+        "q": "Wie ist {{name}} mit anderen Hunden (ohne Leine)?",
+        "options": {
+          "plays": "Spielt gern",
+          "selective": "Mag manche, andere nicht",
+          "ignores": "Ignoriert sie meist",
+          "tense": "Ist angespannt oder unsicher"
+        }
+      },
+      "leash_dogs": {
+        "q": "Und an der Leine bei Hundebegegnungen?",
+        "options": {
+          "relaxed": "Bleibt entspannt",
+          "pulls_towards": "Zieht hin",
+          "barks_lunges": "Bellt oder springt in die Leine"
+        }
+      },
+      "noises": {
+        "q": "Wie reagiert {{name}} auf laute Geräusche (z. B. Knall, Gewitter)?",
+        "options": {
+          "unbothered": "Kaum Reaktion",
+          "startles_recovers": "Erschrickt, beruhigt sich schnell",
+          "panics": "Hat große Angst, braucht lange"
+        }
+      },
+      "new_places": {
+        "q": "An neuen Orten ist {{name}} …",
+        "options": {
+          "curious": "neugierig",
+          "cautious": "vorsichtig",
+          "stressed": "sichtbar gestresst"
+        }
+      },
+      "wildlife": {
+        "q": "Wenn {{name}} Wild, Katzen oder Vögel sieht …",
+        "options": {
+          "no_interest": "kaum Interesse",
+          "watches": "schaut gebannt",
+          "chases": "will hinterher"
+        }
+      },
+      "moving_things": {
+        "q": "Jogger, Radfahrer oder Bälle …",
+        "options": {
+          "ignores": "sind egal",
+          "interested": "interessieren",
+          "must_chase": "müssen verfolgt werden"
+        }
+      },
+      "alone": {
+        "q": "Wenn {{name}} allein bleibt …",
+        "options": {
+          "fine": "bleibt entspannt",
+          "unhappy_short": "ist kurz unruhig",
+          "cannot": "bellt, jault oder zerstört"
+        }
+      },
+      "follows": {
+        "q": "Folgt {{name}} dir zu Hause von Raum zu Raum?",
+        "options": { "independent": "Selten", "sometimes": "Manchmal", "everywhere": "Fast immer" }
+      },
+      "recall_off_leash": {
+        "q": "Ohne Leine ist {{name}} …",
+        "options": {
+          "stays_close": "immer in meiner Nähe",
+          "comes_mostly": "meist abrufbar",
+          "own_way": "gern auf eigenen Wegen"
+        }
+      }
     },
     "traits": {
-      "energy": { "label": "Energie", "low": "{{name}} ist eher gemütlich. Kurze, abwechslungsreiche Spaziergänge und Nasenarbeit reichen oft.", "mid": "{{name}} braucht eine gute Mischung aus Bewegung, Kopfarbeit und Ruhe.", "high": "{{name}} hat viel Energie. Plane täglich Kopfarbeit ein – und genauso bewusst Ruhephasen, damit {{name}} abschalten lernt." },
-      "sociability_people": { "label": "Menschenbezug", "low": "{{name}} ist Fremden gegenüber reserviert. Lass Kontakt freiwillig entstehen und schütz {{name}} vor Bedrängen.", "mid": "{{name}} ist offen, braucht aber manchmal einen Moment. Gib Zeit und belohne ruhiges Kennenlernen.", "high": "{{name}} liebt Menschen. Übe ruhige Begrüßungen, damit die Freude nicht überschwappt." },
-      "sociability_dogs": { "label": "Hundekontakt", "low": "Hundebegegnungen sind für {{name}} schwierig. Abstand und Bögen helfen; such ruhige, souveräne Hundekontakte.", "mid": "{{name}} kommt mit vielen Hunden klar, aber nicht mit allen. Achte auf Körpersprache und brich Kontakte rechtzeitig ab.", "high": "{{name}} ist sehr hundefreundlich. Übe trotzdem, an anderen Hunden vorbeizugehen." },
-      "anxiety": { "label": "Ängstlichkeit", "low": "{{name}} ist eher gelassen. Neue Situationen kannst du zügig einführen.", "mid": "{{name}} ist manchmal unsicher. Gib Zeit, Abstand und belohne mutiges Verhalten.", "high": "{{name}} ist schnell verunsichert. Sicherheit, Routinen und kleine Schritte sind jetzt das Wichtigste." },
-      "prey_drive": { "label": "Jagdtrieb", "low": "Jagdreize spielen bei {{name}} kaum eine Rolle.", "mid": "{{name}} reagiert auf Bewegungsreize. Trainiere den Rückruf unter Ablenkung.", "high": "{{name}} hat starken Jagdtrieb. Schleppleine in wildreichen Gebieten und Jagdersatz-Spiele sind wichtig." },
-      "attachment": { "label": "Bindung", "low": "{{name}} ist recht selbstständig. Mach dich mit Spielen und Belohnungen draußen interessant.", "mid": "{{name}} ist gut an dich gebunden und trotzdem selbstständig.", "high": "{{name}} ist sehr eng an dich gebunden. Übe Alleinbleiben in kleinen Schritten." }
+      "energy": {
+        "label": "Energie",
+        "low": "{{name}} ist eher gemütlich. Kurze, abwechslungsreiche Spaziergänge und Nasenarbeit reichen oft.",
+        "mid": "{{name}} braucht eine gute Mischung aus Bewegung, Kopfarbeit und Ruhe.",
+        "high": "{{name}} hat viel Energie. Plane täglich Kopfarbeit ein – und genauso bewusst Ruhephasen, damit {{name}} abschalten lernt."
+      },
+      "sociability_people": {
+        "label": "Menschenbezug",
+        "low": "{{name}} ist Fremden gegenüber reserviert. Lass Kontakt freiwillig entstehen und schütz {{name}} vor Bedrängen.",
+        "mid": "{{name}} ist offen, braucht aber manchmal einen Moment. Gib Zeit und belohne ruhiges Kennenlernen.",
+        "high": "{{name}} liebt Menschen. Übe ruhige Begrüßungen, damit die Freude nicht überschwappt."
+      },
+      "sociability_dogs": {
+        "label": "Hundekontakt",
+        "low": "Hundebegegnungen sind für {{name}} schwierig. Abstand und Bögen helfen; such ruhige, souveräne Hundekontakte.",
+        "mid": "{{name}} kommt mit vielen Hunden klar, aber nicht mit allen. Achte auf Körpersprache und brich Kontakte rechtzeitig ab.",
+        "high": "{{name}} ist sehr hundefreundlich. Übe trotzdem, an anderen Hunden vorbeizugehen."
+      },
+      "anxiety": {
+        "label": "Ängstlichkeit",
+        "low": "{{name}} ist eher gelassen. Neue Situationen kannst du zügig einführen.",
+        "mid": "{{name}} ist manchmal unsicher. Gib Zeit, Abstand und belohne mutiges Verhalten.",
+        "high": "{{name}} ist schnell verunsichert. Sicherheit, Routinen und kleine Schritte sind jetzt das Wichtigste."
+      },
+      "prey_drive": {
+        "label": "Jagdtrieb",
+        "low": "Jagdreize spielen bei {{name}} kaum eine Rolle.",
+        "mid": "{{name}} reagiert auf Bewegungsreize. Trainiere den Rückruf unter Ablenkung.",
+        "high": "{{name}} hat starken Jagdtrieb. Schleppleine in wildreichen Gebieten und Jagdersatz-Spiele sind wichtig."
+      },
+      "attachment": {
+        "label": "Bindung",
+        "low": "{{name}} ist recht selbstständig. Mach dich mit Spielen und Belohnungen draußen interessant.",
+        "mid": "{{name}} ist gut an dich gebunden und trotzdem selbstständig.",
+        "high": "{{name}} ist sehr eng an dich gebunden. Übe Alleinbleiben in kleinen Schritten."
+      }
     }
   },
   "today": {
@@ -155,7 +272,15 @@
     "noTask": "Heute steht keine Trainingsaufgabe an.",
     "openPlan": "Zum Trainingsplan",
     "checkinDue": "Check-in fällig: Nimm die Situation nochmal auf.",
-    "tipCategories": { "exercise": "Auslastung", "training": "Erziehung", "nutrition": "Ernährung", "grooming": "Pflege", "health_reminder": "Vorsorge", "social": "Sozialkontakt", "phase_change": "Neue Phase" }
+    "tipCategories": {
+      "exercise": "Auslastung",
+      "training": "Erziehung",
+      "nutrition": "Ernährung",
+      "grooming": "Pflege",
+      "health_reminder": "Vorsorge",
+      "social": "Sozialkontakt",
+      "phase_change": "Neue Phase"
+    }
   },
   "analysis": {
     "title": "Analyse",
@@ -169,7 +294,15 @@
     "wanted": "Das Verhalten ist …",
     "wantedOptions": { "wanted": "gewollt", "unwanted": "unerwünscht", "unsure": "weiß nicht" },
     "situation": "Situation",
-    "situations": { "walk": "Spaziergang", "home": "Zu Hause", "visitors": "Besuch", "other_dog": "Anderer Hund", "car": "Auto", "alone": "Allein", "other": "Sonstiges" },
+    "situations": {
+      "walk": "Spaziergang",
+      "home": "Zu Hause",
+      "visitors": "Besuch",
+      "other_dog": "Anderer Hund",
+      "car": "Auto",
+      "alone": "Allein",
+      "other": "Sonstiges"
+    },
     "submit": "Analysieren",
     "uploading": "Wird hochgeladen …",
     "tooLong": "Videos dürfen höchstens 30 Sekunden lang sein. Bitte kürze das Video.",
@@ -183,7 +316,12 @@
     "permissionDenied": "Ohne Zugriff auf Kamera bzw. Fotos kann keine Aufnahme gewählt werden. Du kannst den Zugriff in den Einstellungen deines Geräts erlauben.",
     "history": "Verlauf",
     "empty": "Noch keine Analysen.",
-    "status": { "queued": "Wartet", "analyzing": "Wird analysiert …", "done": "Fertig", "failed": "Fehlgeschlagen" },
+    "status": {
+      "queued": "Wartet",
+      "analyzing": "Wird analysiert …",
+      "done": "Fertig",
+      "failed": "Fehlgeschlagen"
+    },
     "analyzingBody": "Das dauert meist unter einer Minute. Du kannst die App solange weiter nutzen.",
     "result": "Einschätzung",
     "likelyCause": "Wahrscheinliche Ursache",
@@ -200,9 +338,26 @@
     "checkinTitle": "Check-in-Aufnahme",
     "checkinHint": "Nimm die gleiche Situation wie beim ersten Mal auf. Der Coach vergleicht und passt den Plan an.",
     "checkinResult": "Vergleich mit der ersten Aufnahme",
-    "progress": { "improved": "Fortschritt", "unchanged": "Unverändert", "worse": "Schwieriger geworden", "unclear": "Nicht eindeutig" },
-    "adjustment": { "extend": "Plan wird verlängert", "simplify": "Übungen werden vereinfacht", "next_level": "Nächste Stufe", "keep": "Weiter wie geplant", "stop_and_refer": "Plan beendet – bitte Fachleute einbeziehen" },
-    "resultTypes": { "answer": "Antwort", "assessment": "Einschätzung", "vet_referral": "Bitte zuerst Tierarzt", "trainer_referral": "Bitte Fachleute einbeziehen", "retake": "Neue Aufnahme nötig" }
+    "progress": {
+      "improved": "Fortschritt",
+      "unchanged": "Unverändert",
+      "worse": "Schwieriger geworden",
+      "unclear": "Nicht eindeutig"
+    },
+    "adjustment": {
+      "extend": "Plan wird verlängert",
+      "simplify": "Übungen werden vereinfacht",
+      "next_level": "Nächste Stufe",
+      "keep": "Weiter wie geplant",
+      "stop_and_refer": "Plan beendet – bitte Fachleute einbeziehen"
+    },
+    "resultTypes": {
+      "answer": "Antwort",
+      "assessment": "Einschätzung",
+      "vet_referral": "Bitte zuerst Tierarzt",
+      "trainer_referral": "Bitte Fachleute einbeziehen",
+      "retake": "Neue Aufnahme nötig"
+    }
   },
   "plan": {
     "title": "Trainingsplan",
@@ -227,14 +382,28 @@
     "cancel": "Plan beenden",
     "cancelTitle": "Plan beenden?",
     "cancelBody": "Der Plan wird beendet. Du bekommst keine Erinnerungen mehr.",
-    "statuses": { "active": "Aktiv", "completed": "Abgeschlossen", "cancelled": "Beendet", "superseded": "Durch neue Version ersetzt" },
+    "statuses": {
+      "active": "Aktiv",
+      "completed": "Abgeschlossen",
+      "cancelled": "Beendet",
+      "superseded": "Durch neue Version ersetzt"
+    },
     "reminderTitle": "Training mit {{name}}",
     "progressLabel": "{{done}} von {{total}} Aufgaben erledigt"
   },
   "community": {
     "title": "Community",
     "new": "Frage stellen",
-    "categories": { "all": "Alle", "training": "Training", "behavior": "Verhalten", "puppy": "Welpen", "nutrition": "Ernährung", "health": "Gesundheit", "everyday": "Alltag", "other": "Sonstiges" },
+    "categories": {
+      "all": "Alle",
+      "training": "Training",
+      "behavior": "Verhalten",
+      "puppy": "Welpen",
+      "nutrition": "Ernährung",
+      "health": "Gesundheit",
+      "everyday": "Alltag",
+      "other": "Sonstiges"
+    },
     "empty": "Noch keine Fragen in dieser Kategorie.",
     "aiBadge": "Antwort vom KI-Coach",
     "aiAuthor": "KI-Coach",
@@ -250,7 +419,12 @@
     "report": "Melden",
     "reportTitle": "Beitrag melden",
     "reportReason": "Warum meldest du das?",
-    "reportReasons": { "spam": "Spam oder Werbung", "abuse": "Beleidigung oder Hass", "harmful": "Gefährlicher Ratschlag", "other": "Sonstiges" },
+    "reportReasons": {
+      "spam": "Spam oder Werbung",
+      "abuse": "Beleidigung oder Hass",
+      "harmful": "Gefährlicher Ratschlag",
+      "other": "Sonstiges"
+    },
     "reportSent": "Danke! Wir prüfen die Meldung.",
     "block": "Nutzer blockieren",
     "blockTitle": "Nutzer blockieren?",

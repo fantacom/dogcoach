@@ -8,7 +8,12 @@ export function ToggleRow({ label, value, onChange }: Props) {
   return (
     <View className="min-h-12 flex-row items-center justify-between gap-4">
       <Text className="flex-1">{label}</Text>
-      <Switch accessibilityLabel={label} value={value} onValueChange={onChange} trackColor={{ true: '#2F6B57' }} />
+      <Switch
+        accessibilityLabel={label}
+        value={value}
+        onValueChange={onChange}
+        trackColor={{ true: '#2F6B57' }}
+      />
     </View>
   );
 }

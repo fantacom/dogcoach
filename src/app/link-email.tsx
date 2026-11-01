@@ -31,7 +31,9 @@ export default function LinkEmailScreen() {
     <Screen>
       <Text>{t('auth.linkBody')}</Text>
       {sent ? (
-        <Text accessibilityLiveRegion="polite">{t('auth.linkSentInfo', { email: email.trim() })}</Text>
+        <Text accessibilityLiveRegion="polite">
+          {t('auth.linkSentInfo', { email: email.trim() })}
+        </Text>
       ) : (
         <>
           <TextField

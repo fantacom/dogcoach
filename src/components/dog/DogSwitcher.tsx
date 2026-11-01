@@ -10,7 +10,12 @@ export function DogSwitcher() {
   const select = useDogStore((s) => s.select);
   if (dogs.length < 2) return null;
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="gap-2">
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      className="grow-0"
+      contentContainerClassName="items-center gap-2"
+    >
       {dogs.map((d) => (
         <Chip key={d.id} label={d.name} selected={d.id === dog?.id} onPress={() => select(d.id)} />
       ))}

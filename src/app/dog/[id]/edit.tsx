@@ -35,7 +35,12 @@ export default function EditDogScreen() {
   return (
     <Screen>
       <DogForm dog={dog} onSaved={() => router.back()} />
-      <Button title={t('dogForm.delete')} variant="ghost" onPress={onDelete} loading={remove.isPending} />
+      <Button
+        title={t('dogForm.delete')}
+        variant="ghost"
+        onPress={onDelete}
+        loading={remove.isPending}
+      />
     </Screen>
   );
 }

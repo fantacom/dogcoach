@@ -13,7 +13,12 @@ export function useBreeds() {
     queryKey: qk.breeds,
     staleTime: Infinity,
     queryFn: async () =>
-      unwrap(await supabase.from('breeds').select('id, name_de, size_class, group, base_traits, notes').order('name_de')) as Breed[],
+      unwrap(
+        await supabase
+          .from('breeds')
+          .select('id, name_de, size_class, group, base_traits, notes')
+          .order('name_de'),
+      ) as Breed[],
   });
 }
 
@@ -22,7 +27,11 @@ export function usePhases() {
     queryKey: qk.phases,
     staleTime: Infinity,
     queryFn: async () =>
-      unwrap(await supabase.from('dev_phases').select('size_class, phase_key, from_weeks, to_weeks, content')) as PhaseRow[],
+      unwrap(
+        await supabase
+          .from('dev_phases')
+          .select('size_class, phase_key, from_weeks, to_weeks, content'),
+      ) as PhaseRow[],
   });
 }
 
@@ -31,7 +40,8 @@ export function useDogs() {
   return useQuery({
     queryKey: qk.dogs,
     enabled: !!userId,
-    queryFn: async () => unwrap(await supabase.from('dogs').select('*').order('created_at')) as Dog[],
+    queryFn: async () =>
+      unwrap(await supabase.from('dogs').select('*').order('created_at')) as Dog[],
   });
 }
 
@@ -45,7 +55,9 @@ export function useSaveDog() {
   return useMutation({
     mutationFn: async ({ id, input }: { id?: string; input: DogInput }) =>
       id
-        ? (unwrap(await supabase.from('dogs').update(input).eq('id', id).select('*').single()) as Dog)
+        ? (unwrap(
+            await supabase.from('dogs').update(input).eq('id', id).select('*').single(),
+          ) as Dog)
         : (unwrap(await supabase.from('dogs').insert(input).select('*').single()) as Dog),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: qk.dogs });

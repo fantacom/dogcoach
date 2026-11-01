@@ -4,7 +4,11 @@ import { supabase } from '../supabase';
 import { toAppError } from './errors';
 
 export class FunctionError extends Error {
-  constructor(public status: number, public code: string, public body: Record<string, unknown>) {
+  constructor(
+    public status: number,
+    public code: string,
+    public body: Record<string, unknown>,
+  ) {
     super(code);
   }
 }
@@ -21,7 +25,11 @@ export async function invoke<T>(name: string, body?: unknown): Promise<T> {
       } catch {
         /* leer */
       }
-      throw new FunctionError(res.status, String(payload.reason ?? payload.error ?? 'error'), payload);
+      throw new FunctionError(
+        res.status,
+        String(payload.reason ?? payload.error ?? 'error'),
+        payload,
+      );
     }
     throw toAppError(error);
   }

@@ -26,7 +26,9 @@ export function PhaseCard({ dog, phase }: { dog: Dog; phase: PhaseResult | null 
       <View className="flex-row flex-wrap items-center justify-between gap-2">
         <Text variant="caption">{t('today.phase')}</Text>
         <Text variant="caption">
-          {phase.ageWeeks < 26 ? t('today.ageWeeks', { weeks: phase.ageWeeks }) : t('today.age', { years, months })}
+          {phase.ageWeeks < 26
+            ? t('today.ageWeeks', { weeks: phase.ageWeeks })
+            : t('today.age', { years, months })}
           {dog.birth_date_estimated ? ` (${t('today.estimated')})` : ''}
         </Text>
       </View>
@@ -45,7 +47,12 @@ export function PhaseCard({ dog, phase }: { dog: Dog; phase: PhaseResult | null 
         {list(c.focus)}
       </View>
       {phase.next && phase.nextStartDate ? (
-        <Text variant="caption">{t('today.next', { phase: phase.next.content.label, date: formatDate(phase.nextStartDate) })}</Text>
+        <Text variant="caption">
+          {t('today.next', {
+            phase: phase.next.content.label,
+            date: formatDate(phase.nextStartDate),
+          })}
+        </Text>
       ) : null}
       <Badge label={t('today.draft')} />
     </Card>

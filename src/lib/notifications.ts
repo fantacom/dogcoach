@@ -31,7 +31,9 @@ export async function requestPermission(): Promise<'granted' | 'denied' | 'unsup
   return req.granted ? 'granted' : 'denied';
 }
 
-export async function permissionStatus(): Promise<'granted' | 'denied' | 'undetermined' | 'unsupported'> {
+export async function permissionStatus(): Promise<
+  'granted' | 'denied' | 'undetermined' | 'unsupported'
+> {
   if (!supported) return 'unsupported';
   const p = await Notifications.getPermissionsAsync();
   return p.granted ? 'granted' : p.canAskAgain ? 'undetermined' : 'denied';
@@ -52,7 +54,10 @@ export async function getPushToken(): Promise<string | null> {
 }
 
 /** Lokale Erinnerungen für offene, zukünftige Aufgaben planen; erledigte/alte entfernen. */
-export async function syncTaskReminders(tasks: (PlanTask & { planActive: boolean })[], title: string) {
+export async function syncTaskReminders(
+  tasks: (PlanTask & { planActive: boolean })[],
+  title: string,
+) {
   if (!supported || (await permissionStatus()) !== 'granted') return;
   const scheduled = await Notifications.getAllScheduledNotificationsAsync();
   const existing = new Set(scheduled.map((n) => n.identifier));
@@ -86,6 +91,8 @@ export function subscribeToNotificationTaps() {
   };
   const last = Notifications.getLastNotificationResponse();
   if (last) open(last.notification.request.content.data);
-  const sub = Notifications.addNotificationResponseReceivedListener((r) => open(r.notification.request.content.data));
+  const sub = Notifications.addNotificationResponseReceivedListener((r) =>
+    open(r.notification.request.content.data),
+  );
   return () => sub.remove();
 }

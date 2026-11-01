@@ -5,14 +5,29 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { Button, Card, ChipGroup, InlineError, LoadingView, Screen, Text, TextField } from '@/components/ui';
+import {
+  Button,
+  Card,
+  ChipGroup,
+  InlineError,
+  LoadingView,
+  Screen,
+  Text,
+  TextField,
+} from '@/components/ui';
 import { useCurrentDog } from '@/hooks/useCurrentDog';
 import { LimitReachedError } from '@/lib/api/errors';
 import { MAX_BYTES, MAX_VIDEO_SECONDS, useCreateUpload } from '@/lib/api/media';
 import { useProfile, useUpdateProfile } from '@/lib/api/profile';
 import type { Situation } from '@/types/db';
 
-type Picked = { uri: string; mimeType: string; type: 'photo' | 'video'; durationS: number | null; sizeBytes: number | null };
+type Picked = {
+  uri: string;
+  mimeType: string;
+  type: 'photo' | 'video';
+  durationS: number | null;
+  sizeBytes: number | null;
+};
 type Wanted = 'wanted' | 'unwanted' | 'unsure';
 
 // 720p-Komprimierung über die Bordmittel von Expo Go (CLAUDE.md §3.4)
@@ -49,8 +64,16 @@ export default function NewAnalysisScreen() {
         <Text variant="title">{t('analysis.consentTitle')}</Text>
         <Text>{t('analysis.consentBody')}</Text>
         <Text variant="caption">{t('analysis.personsHint')}</Text>
-        <Button title={t('analysis.consentAccept')} onPress={() => updateProfile.mutate({ media_consent_at: new Date().toISOString() })} loading={updateProfile.isPending} />
-        <Button title={t('analysis.consentDecline')} variant="ghost" onPress={() => router.back()} />
+        <Button
+          title={t('analysis.consentAccept')}
+          onPress={() => updateProfile.mutate({ media_consent_at: new Date().toISOString() })}
+          loading={updateProfile.isPending}
+        />
+        <Button
+          title={t('analysis.consentDecline')}
+          variant="ghost"
+          onPress={() => router.back()}
+        />
       </Screen>
     );
   }
@@ -58,16 +81,29 @@ export default function NewAnalysisScreen() {
   function accept(asset: ImagePicker.ImagePickerAsset) {
     const type = asset.type === 'video' ? 'video' : 'photo';
     const durationS = asset.duration ? Math.round(asset.duration / 100) / 10 : null;
-    if (type === 'video' && durationS && durationS > MAX_VIDEO_SECONDS + 0.5) return setError(t('analysis.tooLong'));
+    if (type === 'video' && durationS && durationS > MAX_VIDEO_SECONDS + 0.5)
+      return setError(t('analysis.tooLong'));
     if (asset.fileSize && asset.fileSize > MAX_BYTES) return setError(t('analysis.tooBig'));
     setError(null);
-    setMedia({ uri: asset.uri, mimeType: asset.mimeType ?? (type === 'video' ? 'video/mp4' : 'image/jpeg'), type, durationS, sizeBytes: asset.fileSize ?? null });
+    setMedia({
+      uri: asset.uri,
+      mimeType: asset.mimeType ?? (type === 'video' ? 'video/mp4' : 'image/jpeg'),
+      type,
+      durationS,
+      sizeBytes: asset.fileSize ?? null,
+    });
   }
 
   async function pick(source: 'library' | 'camera') {
-    const perm = source === 'camera' ? await ImagePicker.requestCameraPermissionsAsync() : await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const perm =
+      source === 'camera'
+        ? await ImagePicker.requestCameraPermissionsAsync()
+        : await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!perm.granted) return setError(t('analysis.permissionDenied'));
-    const res = source === 'camera' ? await ImagePicker.launchCameraAsync(PICKER_OPTIONS) : await ImagePicker.launchImageLibraryAsync(PICKER_OPTIONS);
+    const res =
+      source === 'camera'
+        ? await ImagePicker.launchCameraAsync(PICKER_OPTIONS)
+        : await ImagePicker.launchImageLibraryAsync(PICKER_OPTIONS);
     if (!res.canceled && res.assets[0]) accept(res.assets[0]);
   }
 
@@ -107,10 +143,17 @@ export default function NewAnalysisScreen() {
       {media ? (
         <View className="gap-2">
           {media.type === 'photo' ? (
-            <Image source={{ uri: media.uri }} style={{ width: '100%', aspectRatio: 4 / 3, borderRadius: 24 }} contentFit="cover" accessibilityLabel={dog.name} />
+            <Image
+              source={{ uri: media.uri }}
+              style={{ width: '100%', aspectRatio: 4 / 3, borderRadius: 24 }}
+              contentFit="cover"
+              accessibilityLabel={dog.name}
+            />
           ) : (
             <Card>
-              <Text className="font-semibold">🎬 Video{media.durationS ? ` · ${media.durationS.toFixed(0)} s` : ''}</Text>
+              <Text className="font-semibold">
+                🎬 Video{media.durationS ? ` · ${media.durationS.toFixed(0)} s` : ''}
+              </Text>
             </Card>
           )}
           <Button title={t('analysis.change')} variant="ghost" onPress={() => setMedia(null)} />
@@ -118,32 +161,57 @@ export default function NewAnalysisScreen() {
       ) : (
         <View className="gap-3">
           <Button title={t('analysis.camera')} onPress={() => void pick('camera')} />
-          <Button title={t('analysis.pick')} variant="secondary" onPress={() => void pick('library')} />
+          <Button
+            title={t('analysis.pick')}
+            variant="secondary"
+            onPress={() => void pick('library')}
+          />
         </View>
       )}
 
-      <TextField label={`${t('analysis.question')} (${t('common.optional')})`} placeholder={t('analysis.questionPlaceholder')} value={question} onChangeText={setQuestion} multiline maxLength={500} />
+      <TextField
+        label={`${t('analysis.question')} (${t('common.optional')})`}
+        placeholder={t('analysis.questionPlaceholder')}
+        value={question}
+        onChangeText={setQuestion}
+        multiline
+        maxLength={500}
+      />
       <ChipGroup<Wanted>
         label={t('analysis.wanted')}
         value={wanted}
         onChange={setWanted}
-        options={(['wanted', 'unwanted', 'unsure'] as const).map((v) => ({ value: v, label: t(`analysis.wantedOptions.${v}`) }))}
+        options={(['wanted', 'unwanted', 'unsure'] as const).map((v) => ({
+          value: v,
+          label: t(`analysis.wantedOptions.${v}`),
+        }))}
       />
       <ChipGroup<Situation>
         label={t('analysis.situation')}
         value={situation}
         onChange={setSituation}
-        options={(['walk', 'home', 'visitors', 'other_dog', 'car', 'alone', 'other'] as const).map((v) => ({ value: v, label: t(`analysis.situations.${v}`) }))}
+        options={(['walk', 'home', 'visitors', 'other_dog', 'car', 'alone', 'other'] as const).map(
+          (v) => ({ value: v, label: t(`analysis.situations.${v}`) }),
+        )}
       />
 
       {limit ? (
         <View className="gap-2">
           <Text variant="error">{t('premium.limitReached.free_media_analyses_per_month')}</Text>
-          <Button title={t('premium.seePremium')} variant="secondary" onPress={() => router.push('/premium')} />
+          <Button
+            title={t('premium.seePremium')}
+            variant="secondary"
+            onPress={() => router.push('/premium')}
+          />
         </View>
       ) : null}
       <InlineError message={error} />
-      <Button title={create.isPending ? t('analysis.uploading') : t('analysis.submit')} onPress={submit} loading={create.isPending} disabled={!media} />
+      <Button
+        title={create.isPending ? t('analysis.uploading') : t('analysis.submit')}
+        onPress={submit}
+        loading={create.isPending}
+        disabled={!media}
+      />
       <Text variant="caption">{t('common.disclaimer')}</Text>
     </Screen>
   );

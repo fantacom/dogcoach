@@ -37,5 +37,4 @@ describe('LoginScreen', () => {
     await waitFor(() => expect(verifyEmailCode).toHaveBeenCalledWith('du@beispiel.de', '123456'));
     await waitFor(() => expect(router.replace).toHaveBeenCalledWith('/'));
   });
-
 });

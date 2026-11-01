@@ -2,7 +2,17 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, View } from 'react-native';
 
-import { Badge, Button, Card, ErrorView, LoadingView, Markdown, Screen, Section, Text } from '@/components/ui';
+import {
+  Badge,
+  Button,
+  Card,
+  ErrorView,
+  LoadingView,
+  Markdown,
+  Screen,
+  Section,
+  Text,
+} from '@/components/ui';
 import { retryAnalysis, useMediaItem } from '@/lib/api/media';
 import { usePlans } from '@/lib/api/plans';
 import { supabase } from '@/lib/supabase';
@@ -18,7 +28,14 @@ export default function AnalysisResultScreen() {
   const checkin = useQuery({
     queryKey: ['checkin-of-media', id],
     enabled: !!item.data?.plan_checkin_id && item.data.status === 'done',
-    queryFn: async () => (await supabase.from('plan_checkins').select('*').eq('id', item.data!.plan_checkin_id!).single()).data as PlanCheckin | null,
+    queryFn: async () =>
+      (
+        await supabase
+          .from('plan_checkins')
+          .select('*')
+          .eq('id', item.data!.plan_checkin_id!)
+          .single()
+      ).data as PlanCheckin | null,
   });
 
   if (item.isLoading) return <LoadingView />;
@@ -30,7 +47,9 @@ export default function AnalysisResultScreen() {
     return (
       <Screen className="items-center justify-center">
         <ActivityIndicator size="large" />
-        <Text variant="subtitle" accessibilityLiveRegion="polite">{t('analysis.status.analyzing')}</Text>
+        <Text variant="subtitle" accessibilityLiveRegion="polite">
+          {t('analysis.status.analyzing')}
+        </Text>
         <Text variant="caption">{t('analysis.analyzingBody')}</Text>
       </Screen>
     );
@@ -39,7 +58,10 @@ export default function AnalysisResultScreen() {
     return (
       <Screen className="justify-center">
         <Text>{t('analysis.failed')}</Text>
-        <Button title={t('common.retry')} onPress={() => void retryAnalysis(m.id).then(() => item.refetch())} />
+        <Button
+          title={t('common.retry')}
+          onPress={() => void retryAnalysis(m.id).then(() => item.refetch())}
+        />
       </Screen>
     );
   }
@@ -51,10 +73,19 @@ export default function AnalysisResultScreen() {
     return (
       <Screen>
         <Text variant="title">{t('analysis.checkinResult')}</Text>
-        {c?.progress ? <Badge label={t(`analysis.progress.${c.progress}` as never)} tone="primary" /> : null}
+        {c?.progress ? (
+          <Badge label={t(`analysis.progress.${c.progress}` as never)} tone="primary" />
+        ) : null}
         {c?.summary ? <Text>{c.summary}</Text> : null}
-        {c?.adjustment ? <Text className="font-semibold">{t(`analysis.adjustment.${c.adjustment}` as never)}</Text> : null}
-        {newest ? <Button title={t('analysis.openPlan')} onPress={() => router.push({ pathname: '/plan/[id]', params: { id: newest.id } })} /> : null}
+        {c?.adjustment ? (
+          <Text className="font-semibold">{t(`analysis.adjustment.${c.adjustment}` as never)}</Text>
+        ) : null}
+        {newest ? (
+          <Button
+            title={t('analysis.openPlan')}
+            onPress={() => router.push({ pathname: '/plan/[id]', params: { id: newest.id } })}
+          />
+        ) : null}
         <Text variant="caption">{t('common.disclaimer')}</Text>
       </Screen>
     );
@@ -67,7 +98,10 @@ export default function AnalysisResultScreen() {
 
   return (
     <Screen>
-      <Badge label={t(`analysis.resultTypes.${a.result_type}`)} tone={warn ? 'warning' : 'primary'} />
+      <Badge
+        label={t(`analysis.resultTypes.${a.result_type}`)}
+        tone={warn ? 'warning' : 'primary'}
+      />
       {as.headline ? <Text variant="title">{as.headline}</Text> : null}
       {a.answer_md ? <Markdown>{a.answer_md}</Markdown> : null}
 
@@ -83,7 +117,9 @@ export default function AnalysisResultScreen() {
               ))}
             </View>
           ) : null}
-          {as.confidence ? <Text variant="caption">{`${t('analysis.confidence')}: ${t(`analysis.confidenceLevels.${as.confidence}`)}`}</Text> : null}
+          {as.confidence ? (
+            <Text variant="caption">{`${t('analysis.confidence')}: ${t(`analysis.confidenceLevels.${as.confidence}`)}`}</Text>
+          ) : null}
         </Card>
       ) : null}
 
@@ -106,10 +142,16 @@ export default function AnalysisResultScreen() {
       ) : null}
 
       {a.result_type === 'retake' ? (
-        <Button title={t('analysis.retake')} onPress={() => router.replace({ pathname: '/analysis/new', params: { dog: m.dog_id } })} />
+        <Button
+          title={t('analysis.retake')}
+          onPress={() => router.replace({ pathname: '/analysis/new', params: { dog: m.dog_id } })}
+        />
       ) : null}
       {plan ? (
-        <Card onPress={() => router.push({ pathname: '/plan/[id]', params: { id: plan.id } })} accessibilityLabel={t('analysis.openPlan')}>
+        <Card
+          onPress={() => router.push({ pathname: '/plan/[id]', params: { id: plan.id } })}
+          accessibilityLabel={t('analysis.openPlan')}
+        >
           <Text className="font-semibold">{t('analysis.planCreated')}</Text>
           <Text>{plan.goal}</Text>
           <Text className="text-primary dark:text-primary-dark">{t('analysis.openPlan')} →</Text>
@@ -118,7 +160,11 @@ export default function AnalysisResultScreen() {
       {as.plan_status === 'limit_reached' ? (
         <View className="gap-2">
           <Text variant="error">{t('analysis.planLimit')}</Text>
-          <Button title={t('premium.seePremium')} variant="secondary" onPress={() => router.push('/premium')} />
+          <Button
+            title={t('premium.seePremium')}
+            variant="secondary"
+            onPress={() => router.push('/premium')}
+          />
         </View>
       ) : null}
 

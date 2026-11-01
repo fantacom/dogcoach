@@ -31,13 +31,20 @@ export async function sendMagicLink(email: string) {
 }
 
 export async function verifyEmailCode(email: string, token: string) {
-  const { error } = await supabase.auth.verifyOtp({ email: email.trim(), token: token.trim(), type: 'email' });
+  const { error } = await supabase.auth.verifyOtp({
+    email: email.trim(),
+    token: token.trim(),
+    type: 'email',
+  });
   if (error) throw error;
 }
 
 /** Anonymes Konto mit E-Mail verknüpfen (Bestätigungslink an die Adresse). */
 export async function linkEmail(email: string) {
-  const { error } = await supabase.auth.updateUser({ email: email.trim() }, { emailRedirectTo: getRedirectUrl() });
+  const { error } = await supabase.auth.updateUser(
+    { email: email.trim() },
+    { emailRedirectTo: getRedirectUrl() },
+  );
   if (error) throw error;
 }
 

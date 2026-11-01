@@ -29,7 +29,11 @@ export function usePlan(id: string | undefined) {
     enabled: !!id,
     queryFn: async () => {
       const plan = unwrap(
-        await supabase.from('training_plans').select('*, tasks:plan_tasks(*), checkins:plan_checkins(*)').eq('id', id!).single(),
+        await supabase
+          .from('training_plans')
+          .select('*, tasks:plan_tasks(*), checkins:plan_checkins(*)')
+          .eq('id', id!)
+          .single(),
       ) as PlanDetail;
       plan.tasks.sort((a, b) => a.day_index - b.day_index);
       plan.checkins.sort((a, b) => a.due_at.localeCompare(b.due_at));
@@ -57,11 +61,22 @@ export function useActivePlans(dogId: string | undefined) {
 export function useUpdateTask(planId: string, dogId: string) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, done, rating }: { id: string; done: boolean; rating?: TaskRating | null }) =>
+    mutationFn: async ({
+      id,
+      done,
+      rating,
+    }: {
+      id: string;
+      done: boolean;
+      rating?: TaskRating | null;
+    }) =>
       unwrap(
         await supabase
           .from('plan_tasks')
-          .update({ done_at: done ? new Date().toISOString() : null, rating: done ? (rating ?? null) : null })
+          .update({
+            done_at: done ? new Date().toISOString() : null,
+            rating: done ? (rating ?? null) : null,
+          })
           .eq('id', id),
       ),
     onSuccess: () => {

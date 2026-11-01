@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -16,12 +16,9 @@ export default function TemperamentScreen() {
   const breeds = useBreeds();
   const existing = useTemperament(id);
   const save = useSaveTemperament(id);
-  const [answers, setAnswers] = useState<Answers>({});
+  const [changes, setAnswers] = useState<Answers>({});
+  const answers: Answers = { ...(existing.data?.answers ?? {}), ...changes };
   const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (existing.data?.answers) setAnswers((a) => ({ ...existing.data!.answers, ...a }));
-  }, [existing.data]);
 
   if (isLoading || existing.isLoading) return <LoadingView />;
   if (!dog) return <ErrorView />;
@@ -40,7 +37,9 @@ export default function TemperamentScreen() {
 
   return (
     <Screen>
-      {index === 0 ? <Text variant="caption">{t('temperament.intro', { name: dog.name })}</Text> : null}
+      {index === 0 ? (
+        <Text variant="caption">{t('temperament.intro', { name: dog.name })}</Text>
+      ) : null}
       <Text variant="caption" accessibilityLiveRegion="polite">
         {t('temperament.progress', { current: index + 1, total: QUESTIONS.length })}
       </Text>
@@ -61,11 +60,29 @@ export default function TemperamentScreen() {
         ))}
       </View>
       <View className="mt-4 flex-row gap-3">
-        {index > 0 ? <Button className="flex-1" title={t('common.back')} variant="secondary" onPress={() => setIndex(index - 1)} /> : null}
+        {index > 0 ? (
+          <Button
+            className="flex-1"
+            title={t('common.back')}
+            variant="secondary"
+            onPress={() => setIndex(index - 1)}
+          />
+        ) : null}
         {last ? (
-          <Button className="flex-1" title={t('temperament.finish')} onPress={submit} loading={save.isPending} disabled={!answers[q.key]} />
+          <Button
+            className="flex-1"
+            title={t('temperament.finish')}
+            onPress={submit}
+            loading={save.isPending}
+            disabled={!answers[q.key]}
+          />
         ) : (
-          <Button className="flex-1" title={t('common.next')} variant="secondary" onPress={() => setIndex(index + 1)} />
+          <Button
+            className="flex-1"
+            title={t('common.next')}
+            variant="secondary"
+            onPress={() => setIndex(index + 1)}
+          />
         )}
       </View>
       {onboarding ? <Button title={t('common.done')} variant="ghost" onPress={finish} /> : null}

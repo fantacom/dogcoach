@@ -12,7 +12,9 @@ type IconName = ComponentProps<typeof Ionicons>['name'];
 
 function icon(name: IconName) {
   return function TabIcon({ color, size }: { color: ColorValue; size: number }) {
-    return <Ionicons name={name} color={typeof color === 'string' ? color : undefined} size={size} />;
+    return (
+      <Ionicons name={name} color={typeof color === 'string' ? color : undefined} size={size} />
+    );
   };
 }
 
@@ -34,10 +36,22 @@ export default function TabsLayout() {
         tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.border },
       }}
     >
-      <Tabs.Screen name="index" options={{ title: t('tabs.today'), tabBarIcon: icon('sunny-outline') }} />
-      <Tabs.Screen name="analysis" options={{ title: t('tabs.analysis'), tabBarIcon: icon('camera-outline') }} />
-      <Tabs.Screen name="community" options={{ title: t('tabs.community'), tabBarIcon: icon('chatbubbles-outline') }} />
-      <Tabs.Screen name="my-dog" options={{ title: t('tabs.myDog'), tabBarIcon: icon('paw-outline') }} />
+      <Tabs.Screen
+        name="index"
+        options={{ title: t('tabs.today'), tabBarIcon: icon('sunny-outline') }}
+      />
+      <Tabs.Screen
+        name="analysis"
+        options={{ title: t('tabs.analysis'), tabBarIcon: icon('camera-outline') }}
+      />
+      <Tabs.Screen
+        name="community"
+        options={{ title: t('tabs.community'), tabBarIcon: icon('chatbubbles-outline') }}
+      />
+      <Tabs.Screen
+        name="my-dog"
+        options={{ title: t('tabs.myDog'), tabBarIcon: icon('paw-outline') }}
+      />
     </Tabs>
   );
 }

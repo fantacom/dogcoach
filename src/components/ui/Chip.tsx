@@ -17,7 +17,10 @@ export function Chip({ label, selected = false, onPress }: ChipProps) {
           : 'border-border bg-surface dark:border-border-dark dark:bg-surface-dark'
       }`}
     >
-      <Text variant="label" className={`text-sm ${selected ? 'text-white dark:text-bg-dark' : 'text-ink dark:text-ink-dark'}`}>
+      <Text
+        variant="label"
+        className={`text-sm ${selected ? 'text-white dark:text-bg-dark' : 'text-ink dark:text-ink-dark'}`}
+      >
         {label}
       </Text>
     </Pressable>
@@ -43,7 +46,12 @@ export function ChipGroup<T extends string>({ label, options, value, onChange }:
       ) : null}
       <View className="flex-row flex-wrap gap-2">
         {options.map((o) => (
-          <Chip key={o.value} label={o.label} selected={value === o.value} onPress={() => onChange(o.value)} />
+          <Chip
+            key={o.value}
+            label={o.label}
+            selected={value === o.value}
+            onPress={() => onChange(o.value)}
+          />
         ))}
       </View>
     </View>

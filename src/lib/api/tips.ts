@@ -26,7 +26,12 @@ export function useMarkTipRead(dogId: string) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) =>
-      unwrap(await supabase.from('coach_tips').update({ read_at: new Date().toISOString() }).eq('id', id)),
+      unwrap(
+        await supabase
+          .from('coach_tips')
+          .update({ read_at: new Date().toISOString() })
+          .eq('id', id),
+      ),
     onSuccess: () => void qc.invalidateQueries({ queryKey: qk.tips(dogId) }),
   });
 }

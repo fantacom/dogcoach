@@ -36,7 +36,13 @@ export default function RootLayout() {
 
   let content;
   if (!initialized) content = null;
-  else if (bootError) content = <ErrorView message={`${t('boot.errorTitle')}. ${t('boot.errorBody')}`} onRetry={() => void ensureSession()} />;
+  else if (bootError)
+    content = (
+      <ErrorView
+        message={`${t('boot.errorTitle')}. ${t('boot.errorBody')}`}
+        onRetry={() => void ensureSession()}
+      />
+    );
   else if (!session) content = <LoadingView />;
   else
     content = (
@@ -53,7 +59,10 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="onboarding" options={{ headerShown: false, gestureEnabled: false }} />
         <Stack.Screen name="login" options={{ title: t('auth.title'), presentation: 'modal' }} />
-        <Stack.Screen name="link-email" options={{ title: t('auth.linkTitle'), presentation: 'modal' }} />
+        <Stack.Screen
+          name="link-email"
+          options={{ title: t('auth.linkTitle'), presentation: 'modal' }}
+        />
         <Stack.Screen name="callback" options={{ headerShown: false }} />
         <Stack.Screen name="dog/new" options={{ title: t('dogForm.titleNew') }} />
         <Stack.Screen name="dog/[id]/edit" options={{ title: t('dogForm.titleEdit') }} />
@@ -64,7 +73,10 @@ export default function RootLayout() {
         <Stack.Screen name="community/new" options={{ title: t('community.newTitle') }} />
         <Stack.Screen name="community/[id]" options={{ title: t('community.title') }} />
         <Stack.Screen name="settings" options={{ title: t('settings.title') }} />
-        <Stack.Screen name="premium" options={{ title: t('premium.title'), presentation: 'modal' }} />
+        <Stack.Screen
+          name="premium"
+          options={{ title: t('premium.title'), presentation: 'modal' }}
+        />
         <Stack.Screen name="admin" options={{ title: t('admin.title') }} />
       </Stack>
     );

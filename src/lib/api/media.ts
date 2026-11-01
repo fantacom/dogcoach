@@ -28,7 +28,10 @@ export function useMediaHistory(dogId: string | undefined) {
           .order('created_at', { ascending: false })
           .limit(50),
       ) as (MediaUpload & { analysis: Analysis[] | Analysis | null })[];
-      return rows.map((r) => ({ ...r, analysis: Array.isArray(r.analysis) ? (r.analysis[0] ?? null) : r.analysis }));
+      return rows.map((r) => ({
+        ...r,
+        analysis: Array.isArray(r.analysis) ? (r.analysis[0] ?? null) : r.analysis,
+      }));
     },
   });
 }
@@ -41,21 +44,33 @@ export function useMediaItem(id: string | undefined) {
     enabled: !!id,
     queryFn: async () => {
       const r = unwrap(
-        await supabase.from('media_uploads').select('*, analysis:analyses(*)').eq('id', id!).single(),
+        await supabase
+          .from('media_uploads')
+          .select('*, analysis:analyses(*)')
+          .eq('id', id!)
+          .single(),
       ) as MediaUpload & { analysis: Analysis[] | Analysis | null };
-      return { ...r, analysis: Array.isArray(r.analysis) ? (r.analysis[0] ?? null) : r.analysis } as MediaWithAnalysis;
+      return {
+        ...r,
+        analysis: Array.isArray(r.analysis) ? (r.analysis[0] ?? null) : r.analysis,
+      } as MediaWithAnalysis;
     },
     // Fallback, falls Realtime nicht verbunden ist
-    refetchInterval: (q) => (q.state.data && ['queued', 'analyzing'].includes(q.state.data.status) ? 5000 : false),
+    refetchInterval: (q) =>
+      q.state.data && ['queued', 'analyzing'].includes(q.state.data.status) ? 5000 : false,
   });
 
   useEffect(() => {
     if (!id) return;
     const channel = supabase
       .channel(`media-${id}`)
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'media_uploads', filter: `id=eq.${id}` }, () => {
-        void qc.invalidateQueries({ queryKey: qk.mediaItem(id) });
-      })
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'media_uploads', filter: `id=eq.${id}` },
+        () => {
+          void qc.invalidateQueries({ queryKey: qk.mediaItem(id) });
+        },
+      )
       .subscribe();
     return () => {
       void supabase.removeChannel(channel);

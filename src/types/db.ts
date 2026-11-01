@@ -38,7 +38,9 @@ export type Dog = {
   created_at: string;
 };
 
-export type DogInput = Omit<Dog, 'id' | 'owner_id' | 'created_at' | 'photo_url'> & { photo_url?: string | null };
+export type DogInput = Omit<Dog, 'id' | 'owner_id' | 'created_at' | 'photo_url'> & {
+  photo_url?: string | null;
+};
 
 export type Profile = {
   id: string;
@@ -123,7 +125,13 @@ export type PlanTask = {
   day_index: number;
   scheduled_at: string;
   title: string;
-  steps: { exercise?: string; goal?: string; steps?: string[]; duration_min?: number; typical_mistake?: string };
+  steps: {
+    exercise?: string;
+    goal?: string;
+    steps?: string[];
+    duration_min?: number;
+    typical_mistake?: string;
+  };
   success_criteria: string | null;
   done_at: string | null;
   rating: TaskRating | null;
@@ -138,7 +146,8 @@ export type PlanCheckin = {
   comparison: { progress?: string; summary?: string; adjustment?: string } | null;
 };
 
-export type ForumCategory = 'training' | 'behavior' | 'puppy' | 'nutrition' | 'health' | 'everyday' | 'other';
+export type ForumCategory =
+  'training' | 'behavior' | 'puppy' | 'nutrition' | 'health' | 'everyday' | 'other';
 export type ForumPost = {
   id: string;
   author_id: string | null;

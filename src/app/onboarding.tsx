@@ -31,8 +31,16 @@ export default function OnboardingScreen() {
               <Text key={p}>✓ {p}</Text>
             ))}
           </View>
-          <Button title={t('onboarding.start')} onPress={() => setStep('dog')} testID="onboarding-start" />
-          <Button title={t('settings.signInOther')} variant="ghost" onPress={() => router.push('/login')} />
+          <Button
+            title={t('onboarding.start')}
+            onPress={() => setStep('dog')}
+            testID="onboarding-start"
+          />
+          <Button
+            title={t('settings.signInOther')}
+            variant="ghost"
+            onPress={() => router.push('/login')}
+          />
         </View>
       </Screen>
     );
@@ -41,7 +49,14 @@ export default function OnboardingScreen() {
   return (
     <Screen>
       <Text variant="title">{t('dogForm.titleNew')}</Text>
-      <DogForm onSaved={(dog) => router.replace({ pathname: '/dog/[id]/temperament', params: { id: dog.id, onboarding: '1' } })} />
+      <DogForm
+        onSaved={(dog) =>
+          router.replace({
+            pathname: '/dog/[id]/temperament',
+            params: { id: dog.id, onboarding: '1' },
+          })
+        }
+      />
     </Screen>
   );
 }

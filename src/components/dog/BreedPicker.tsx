@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Modal, Pressable, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Pressable, View } from 'react-native';
 
 import { Button, Text, TextField } from '@/components/ui';
 import type { Breed } from '@/types/db';
@@ -14,6 +13,12 @@ type Props = {
   allowClear?: boolean;
 };
 
+const MAX_RESULTS = 8;
+
+/**
+ * Rassenauswahl als eingeblendete Suchliste (kein Modal: RN-Web-Modals blockieren danach
+ * Texteingaben; inline ist zudem für VoiceOver übersichtlicher).
+ */
 export function BreedPicker({ label, breeds, value, onChange, allowClear = false }: Props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -21,8 +26,17 @@ export function BreedPicker({ label, breeds, value, onChange, allowClear = false
   const selected = breeds.find((b) => b.id === value);
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return q ? breeds.filter((b) => b.name_de.toLowerCase().includes(q)) : breeds;
+    return (q ? breeds.filter((b) => b.name_de.toLowerCase().includes(q)) : breeds).slice(
+      0,
+      MAX_RESULTS,
+    );
   }, [breeds, query]);
+
+  function choose(id: string | null) {
+    onChange(id);
+    setOpen(false);
+    setQuery('');
+  }
 
   return (
     <View className="gap-1.5">
@@ -32,48 +46,46 @@ export function BreedPicker({ label, breeds, value, onChange, allowClear = false
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={`${label}: ${selected?.name_de ?? t('dogForm.breed')}`}
-        onPress={() => setOpen(true)}
+        accessibilityState={{ expanded: open }}
+        onPress={() => setOpen(!open)}
         className="min-h-12 justify-center rounded-2xl border border-border bg-surface px-4 py-3 dark:border-border-dark dark:bg-surface-dark"
       >
-        <Text className={selected ? '' : 'text-muted dark:text-muted-dark'}>{selected?.name_de ?? t('dogForm.breed')}</Text>
+        <Text className={selected ? '' : 'text-muted dark:text-muted-dark'}>
+          {selected?.name_de ?? t('dogForm.breed')}
+        </Text>
       </Pressable>
-      <Modal visible={open} animationType="slide" onRequestClose={() => setOpen(false)}>
-        <SafeAreaView className="flex-1 gap-3 bg-bg px-5 pt-4 dark:bg-bg-dark">
-          <TextField label={t('dogForm.breedSearch')} value={query} onChangeText={setQuery} autoFocus autoCorrect={false} />
-          <FlatList
-            data={filtered}
-            keyExtractor={(b) => b.id}
-            keyboardShouldPersistTaps="handled"
-            ListEmptyComponent={<Text variant="caption">{t('dogForm.breedNone')}</Text>}
-            renderItem={({ item }) => (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityState={{ selected: item.id === value }}
-                onPress={() => {
-                  onChange(item.id);
-                  setOpen(false);
-                }}
-                className="min-h-12 justify-center border-b border-border py-3 dark:border-border-dark"
-              >
-                <Text className={item.id === value ? 'font-semibold text-primary dark:text-primary-dark' : ''}>{item.name_de}</Text>
-              </Pressable>
-            )}
+      {open ? (
+        <View className="gap-2 rounded-2xl border border-border p-3 dark:border-border-dark">
+          <TextField
+            label={t('dogForm.breedSearch')}
+            value={query}
+            onChangeText={setQuery}
+            autoFocus
+            autoCorrect={false}
           />
-          <View className="gap-2 pb-4">
-            {allowClear && value ? (
-              <Button
-                title={t('common.delete')}
-                variant="secondary"
-                onPress={() => {
-                  onChange(null);
-                  setOpen(false);
-                }}
-              />
-            ) : null}
-            <Button title={t('common.close')} variant="ghost" onPress={() => setOpen(false)} />
-          </View>
-        </SafeAreaView>
-      </Modal>
+          {filtered.length === 0 ? <Text variant="caption">{t('dogForm.breedNone')}</Text> : null}
+          {filtered.map((item) => (
+            <Pressable
+              key={item.id}
+              accessibilityRole="button"
+              accessibilityState={{ selected: item.id === value }}
+              onPress={() => choose(item.id)}
+              className="min-h-11 justify-center border-b border-border py-2 dark:border-border-dark"
+            >
+              <Text
+                className={
+                  item.id === value ? 'font-semibold text-primary dark:text-primary-dark' : ''
+                }
+              >
+                {item.name_de}
+              </Text>
+            </Pressable>
+          ))}
+          {allowClear && value ? (
+            <Button title={t('common.delete')} variant="ghost" onPress={() => choose(null)} />
+          ) : null}
+        </View>
+      ) : null}
     </View>
   );
 }

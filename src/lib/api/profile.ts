@@ -18,7 +18,15 @@ export function useProfile() {
 }
 
 type ProfileUpdate = Partial<
-  Pick<Profile, 'display_name' | 'push_token' | 'notification_time' | 'timezone' | 'media_consent_at' | 'analytics_consent'>
+  Pick<
+    Profile,
+    | 'display_name'
+    | 'push_token'
+    | 'notification_time'
+    | 'timezone'
+    | 'media_consent_at'
+    | 'analytics_consent'
+  >
 >;
 
 export function useUpdateProfile() {
@@ -26,7 +34,14 @@ export function useUpdateProfile() {
   const userId = useAuthStore((s) => s.session?.user.id);
   return useMutation({
     mutationFn: async (patch: ProfileUpdate) =>
-      unwrap(await supabase.from('profiles').update(patch).eq('id', userId!).select('*').single<Profile>()),
+      unwrap(
+        await supabase
+          .from('profiles')
+          .update(patch)
+          .eq('id', userId!)
+          .select('*')
+          .single<Profile>(),
+      ),
     onSuccess: (data) => qc.setQueryData(qk.profile, data),
   });
 }

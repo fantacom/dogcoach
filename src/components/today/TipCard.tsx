@@ -10,8 +10,18 @@ export function TipCard({ tip, onRead }: { tip: CoachTip; onRead: () => void }) 
   return (
     <Card className={unread ? '' : 'opacity-70'}>
       <View className="flex-row items-center justify-between gap-2">
-        <Badge label={t(`today.tipCategories.${tip.category}` as never)} tone={tip.category === 'phase_change' ? 'primary' : 'neutral'} />
-        {unread ? <Button title={t('today.markRead')} variant="ghost" onPress={onRead} className="min-h-9 px-2 py-1" /> : null}
+        <Badge
+          label={t(`today.tipCategories.${tip.category}` as never)}
+          tone={tip.category === 'phase_change' ? 'primary' : 'neutral'}
+        />
+        {unread ? (
+          <Button
+            title={t('today.markRead')}
+            variant="ghost"
+            onPress={onRead}
+            className="min-h-9 px-2 py-1"
+          />
+        ) : null}
       </View>
       <Text className="font-semibold">{tip.title}</Text>
       <Text>{tip.body}</Text>

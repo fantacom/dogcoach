@@ -14,7 +14,11 @@ export function useTemperament(dogId: string | undefined) {
     queryFn: async () => {
       const [answers, profile] = await Promise.all([
         supabase.from('temperament_answers').select('question_key, answer').eq('dog_id', dogId!),
-        supabase.from('temperament_profile').select('traits, updated_at').eq('dog_id', dogId!).maybeSingle(),
+        supabase
+          .from('temperament_profile')
+          .select('traits, updated_at')
+          .eq('dog_id', dogId!)
+          .maybeSingle(),
       ]);
       const rows = unwrap(answers) as { question_key: string; answer: string }[];
       const p = unwrap(profile) as { traits: Traits; updated_at: string } | null;
@@ -30,7 +34,11 @@ export function useSaveTemperament(dogId: string) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async ({ answers, breeds }: { answers: Answers; breeds: BreedTraits[] }) => {
-      const rows = Object.entries(answers).map(([question_key, answer]) => ({ dog_id: dogId, question_key, answer }));
+      const rows = Object.entries(answers).map(([question_key, answer]) => ({
+        dog_id: dogId,
+        question_key,
+        answer,
+      }));
       if (rows.length) unwrap(await supabase.from('temperament_answers').upsert(rows));
       const traits = computeTemperament(answers, breeds);
       unwrap(

@@ -10,7 +10,13 @@ export function useReports() {
   return useQuery({
     queryKey: qk.reports,
     queryFn: async () =>
-      unwrap(await supabase.from('reports').select('*').order('created_at', { ascending: false }).limit(200)) as Report[],
+      unwrap(
+        await supabase
+          .from('reports')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(200),
+      ) as Report[],
   });
 }
 
@@ -25,7 +31,10 @@ export function useResolveReport() {
       unwrap(
         await supabase
           .from('reports')
-          .update({ status: action === 'hide' ? 'resolved' : 'dismissed', resolved_at: new Date().toISOString() })
+          .update({
+            status: action === 'hide' ? 'resolved' : 'dismissed',
+            resolved_at: new Date().toISOString(),
+          })
           .eq('id', report.id),
       );
     },
@@ -36,7 +45,8 @@ export function useResolveReport() {
 export function useAppConfig() {
   return useQuery({
     queryKey: qk.appConfig,
-    queryFn: async () => unwrap(await supabase.from('app_config').select('*').order('key')) as AppConfigRow[],
+    queryFn: async () =>
+      unwrap(await supabase.from('app_config').select('*').order('key')) as AppConfigRow[],
   });
 }
 

@@ -7,7 +7,9 @@ export class LimitReachedError extends Error {
 
 export function toAppError(e: unknown): Error {
   const message =
-    e && typeof e === 'object' && 'message' in e ? String((e as { message: unknown }).message) : String(e);
+    e && typeof e === 'object' && 'message' in e
+      ? String((e as { message: unknown }).message)
+      : String(e);
   const m = message.match(/LIMIT_REACHED:(\w+)/);
   if (m?.[1]) return new LimitReachedError(m[1]);
   return e instanceof Error ? e : new Error(message);
