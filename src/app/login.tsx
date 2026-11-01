@@ -1,12 +1,11 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { Button, Screen, Text, TextField } from '@/components/ui';
-import { BRAND } from '@/constants/brand';
 import { sendMagicLink, verifyEmailCode } from '@/lib/auth';
 import { isValidEmail, isValidOtp } from '@/lib/validation';
-import { useAuthStore } from '@/stores/authStore';
 
 type Step = 'email' | 'sent';
 
@@ -17,7 +16,6 @@ export default function LoginScreen() {
   const [code, setCode] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const setGuest = useAuthStore((s) => s.setGuest);
 
   async function onSendLink() {
     if (!isValidEmail(email)) {
@@ -44,8 +42,8 @@ export default function LoginScreen() {
     setError(null);
     setLoading(true);
     try {
-      // Erfolg: onAuthStateChange setzt die Session, Router leitet in (app) weiter.
       await verifyEmailCode(email, code);
+      router.replace('/');
     } catch {
       setError(t('auth.callbackFailed'));
     } finally {
@@ -56,9 +54,6 @@ export default function LoginScreen() {
   return (
     <Screen className="justify-center">
       <View className="gap-2">
-        <Text variant="caption" className="font-semibold uppercase tracking-widest">
-          {BRAND.name}
-        </Text>
         <Text variant="title">{step === 'email' ? t('auth.title') : t('auth.linkSentTitle')}</Text>
         <Text variant="caption">
           {step === 'email' ? t('auth.subtitle') : t('auth.linkSentBody', { email: email.trim() })}
@@ -81,11 +76,6 @@ export default function LoginScreen() {
             onSubmitEditing={onSendLink}
           />
           <Button title={t('auth.sendLink')} onPress={onSendLink} loading={loading} />
-          <Button
-            title={t('auth.continueAsGuest')}
-            variant="ghost"
-            onPress={() => setGuest(true)}
-          />
         </View>
       ) : (
         <View className="gap-4">

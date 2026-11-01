@@ -3,14 +3,14 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react-nativ
 import '@/i18n';
 import LoginScreen from '@/app/login';
 import { sendMagicLink, verifyEmailCode } from '@/lib/auth';
-import { useAuthStore } from '@/stores/authStore';
+import { router } from 'expo-router';
 
 jest.mock('@/lib/auth', () => ({
   sendMagicLink: jest.fn(async () => undefined),
   verifyEmailCode: jest.fn(async () => undefined),
 }));
 
-jest.mock('@/constants/brand', () => ({ BRAND: { name: 'TestBrand' } }));
+jest.mock('expo-router', () => ({ router: { replace: jest.fn() } }));
 
 describe('LoginScreen', () => {
   beforeEach(() => jest.clearAllMocks());
@@ -35,13 +35,7 @@ describe('LoginScreen', () => {
     await fireEvent.changeText(screen.getByLabelText('Code aus der E-Mail'), '123456');
     await fireEvent.press(screen.getByRole('button', { name: 'Code bestätigen' }));
     await waitFor(() => expect(verifyEmailCode).toHaveBeenCalledWith('du@beispiel.de', '123456'));
+    await waitFor(() => expect(router.replace).toHaveBeenCalledWith('/'));
   });
 
-  it('ermöglicht die Nutzung ohne Anmeldung', async () => {
-    useAuthStore.setState({ guest: false });
-    await render(<LoginScreen />);
-    await fireEvent.press(screen.getByRole('button', { name: 'Ohne Anmeldung weiter' }));
-    expect(useAuthStore.getState().guest).toBe(true);
-    expect(sendMagicLink).not.toHaveBeenCalled();
-  });
 });

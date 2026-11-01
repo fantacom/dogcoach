@@ -1,36 +1,22 @@
 import type { Session } from '@supabase/supabase-js';
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
-
-import { appStorage } from '@/lib/storage';
 
 type AuthState = {
   session: Session | null;
-  /** true, sobald die gespeicherte Session geladen wurde (vorher keine Weiterleitung). */
+  /** true, sobald die gespeicherte Session geladen wurde. */
   initialized: boolean;
-  /**
-   * Gastmodus: App ohne Anmeldung nutzen (vorläufig, solange der Login nicht fertig ist).
-   * Nichts wird auf dem Server gespeichert.
-   */
-  guest: boolean;
+  /** Anonyme Anmeldung beim Start fehlgeschlagen (z. B. offline). */
+  bootError: boolean;
   setSession: (session: Session | null) => void;
-  setGuest: (guest: boolean) => void;
+  setBootError: (v: boolean) => void;
 };
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      session: null,
-      initialized: false,
-      guest: false,
-      setSession: (session) => set({ session, initialized: true }),
-      setGuest: (guest) => set({ guest }),
-    }),
-    {
-      name: 'dogcoach-auth-ui',
-      storage: createJSONStorage(() => appStorage),
-      // Nur der Gast-Schalter wird gespeichert; die Session verwaltet supabase-js selbst.
-      partialize: (state) => ({ guest: state.guest }),
-    },
-  ),
-);
+export const useAuthStore = create<AuthState>((set) => ({
+  session: null,
+  initialized: false,
+  bootError: false,
+  setSession: (session) => set({ session, initialized: true }),
+  setBootError: (bootError) => set({ bootError }),
+}));
+
+export const isAnonymous = (s: Session | null) => !!s?.user.is_anonymous;

@@ -16,8 +16,9 @@ export default function CallbackScreen() {
 
   useEffect(() => {
     if (!hasCode) return;
-    // Erfolg: onAuthStateChange setzt die Session, Router leitet in (app) weiter.
-    exchangeCode(code).catch(() => setExchangeFailed(true));
+    exchangeCode(code)
+      .then(() => router.replace('/'))
+      .catch(() => setExchangeFailed(true));
   }, [code, hasCode]);
 
   return (
