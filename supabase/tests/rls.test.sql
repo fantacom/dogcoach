@@ -195,3 +195,9 @@ select tests.expect((select count(*) from public.media_uploads where owner_id = 
   'Uploads gelöscht');
 select tests.expect((select count(*) from public.forum_posts where author_id = '00000000-0000-0000-0000-00000000000a') = 0,
   'Forum-Beiträge gelöscht');
+
+-- Seed vollständig
+select tests.expect((select count(*) from public.breeds) >= 40, 'mind. 40 Rassen');
+select tests.expect((select count(*) from public.dev_phases) = 24, '6 Phasen x 4 Größen');
+select tests.expect((select count(*) from public.breeds where reviewed_by is not null) = 0, 'Rassen als Entwurf markiert');
+select tests.expect((select count(*) from public.knowledge_articles where reviewed_by is not null) = 0, 'Artikel als Entwurf');
