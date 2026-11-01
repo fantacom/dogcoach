@@ -10,6 +10,7 @@
     "emailPlaceholder": "du@beispiel.de",
     "emailInvalid": "Bitte gib eine gültige E-Mail-Adresse ein.",
     "sendLink": "Anmelde-Link senden",
+    "continueAsGuest": "Ohne Anmeldung weiter",
     "linkSentTitle": "Schau in dein Postfach",
     "linkSentBody": "Wir haben dir eine E-Mail an {{email}} geschickt. Tipp auf den Link darin – oder gib den 6-stelligen Code hier ein.",
     "codeLabel": "Code aus der E-Mail",
@@ -19,7 +20,9 @@
     "callbackTitle": "Du wirst angemeldet …",
     "callbackFailed": "Der Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.",
     "backToLogin": "Zurück zur Anmeldung",
-    "signOut": "Abmelden"
+    "signOut": "Abmelden",
+    "signIn": "Anmelden",
+    "guestHint": "Du nutzt die App ohne Anmeldung. Deine Daten werden noch nicht gespeichert."
   },
   "tabs": {
     "today": "Heute",
