@@ -46,6 +46,7 @@ example
 .env
 .env.*
 !.env.example
+!supabase/.env.functions.example
 
 # Supabase CLI
 supabase/.temp/
