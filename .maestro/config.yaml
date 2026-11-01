@@ -1,0 +1,4 @@
+# Maestro E2E (CLAUDE.md §10). Läuft gegen einen Development/Preview-Build im iOS-Simulator
+# (braucht Xcode bzw. EAS Build) – nicht in Expo Go. Start: maestro test .maestro/
+flows:
+  - onboarding_dog_upload.yaml

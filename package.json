@@ -64,7 +64,10 @@
     "test": "jest",
     "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
     "test:db": "bash supabase/tests/run.sh",
-    "typecheck:functions": "npx -y deno@2.9.6 check --config supabase/functions/deno.json supabase/functions/*/index.ts"
+    "typecheck:functions": "npx -y deno@2.9.6 check --config supabase/functions/deno.json supabase/functions/*/index.ts",
+    "backend:setup": "bash scripts/setup-backend.sh",
+    "backend:deploy": "npx supabase functions deploy --use-api",
+    "backend:migrate": "npx supabase db push --include-seed"
   },
   "private": true
 }

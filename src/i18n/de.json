@@ -70,7 +70,11 @@
     "photoAdd": "Foto hinzufügen",
     "photoChange": "Foto ändern",
     "breedType": "Rasse",
-    "breedTypes": { "purebred": "Rassehund", "mixed": "Mischling", "unknown": "Unbekannt" },
+    "breedTypes": {
+      "purebred": "Rassehund",
+      "mixed": "Mischling",
+      "unknown": "Unbekannt"
+    },
     "breed": "Rasse wählen",
     "parent1": "Elternrasse 1 (optional)",
     "parent2": "Elternrasse 2 (optional)",
@@ -78,10 +82,16 @@
     "breedNone": "Keine Rasse gefunden",
     "breedRequired": "Bitte wähl eine Rasse oder „Unbekannt“.",
     "sex": "Geschlecht",
-    "sexes": { "male": "Rüde", "female": "Hündin" },
+    "sexes": {
+      "male": "Rüde",
+      "female": "Hündin"
+    },
     "neutered": "Kastriert",
     "birth": "Alter",
-    "birthModes": { "date": "Geburtsdatum", "estimate": "Geschätzt" },
+    "birthModes": {
+      "date": "Geburtsdatum",
+      "estimate": "Geschätzt"
+    },
     "birthDate": "Geburtsdatum",
     "birthPlaceholder": "TT.MM.JJJJ",
     "birthInvalid": "Bitte gib ein gültiges Datum in der Vergangenheit ein (TT.MM.JJJJ).",
@@ -97,7 +107,11 @@
       "unknown": "Unbekannt"
     },
     "environment": "Lebensumfeld",
-    "areas": { "city": "Stadt", "suburb": "Stadtrand", "country": "Land" },
+    "areas": {
+      "city": "Stadt",
+      "suburb": "Stadtrand",
+      "country": "Land"
+    },
     "garden": "Garten",
     "children": "Kinder im Haushalt",
     "otherAnimals": "Andere Tiere im Haushalt",
@@ -203,7 +217,11 @@
       },
       "follows": {
         "q": "Folgt {{name}} dir zu Hause von Raum zu Raum?",
-        "options": { "independent": "Selten", "sometimes": "Manchmal", "everywhere": "Fast immer" }
+        "options": {
+          "independent": "Selten",
+          "sometimes": "Manchmal",
+          "everywhere": "Fast immer"
+        }
       },
       "recall_off_leash": {
         "q": "Ohne Leine ist {{name}} …",
@@ -292,7 +310,11 @@
     "question": "Was möchtest du wissen?",
     "questionPlaceholder": "z. B. Warum bellt er Besucher an?",
     "wanted": "Das Verhalten ist …",
-    "wantedOptions": { "wanted": "gewollt", "unwanted": "unerwünscht", "unsure": "weiß nicht" },
+    "wantedOptions": {
+      "wanted": "gewollt",
+      "unwanted": "unerwünscht",
+      "unsure": "weiß nicht"
+    },
     "situation": "Situation",
     "situations": {
       "walk": "Spaziergang",
@@ -327,7 +349,11 @@
     "likelyCause": "Wahrscheinliche Ursache",
     "alternatives": "Andere mögliche Ursachen",
     "confidence": "Sicherheit der Einschätzung",
-    "confidenceLevels": { "low": "gering", "medium": "mittel", "high": "hoch" },
+    "confidenceLevels": {
+      "low": "gering",
+      "medium": "mittel",
+      "high": "hoch"
+    },
     "safetyMeasures": "Sicherheitsmaßnahmen",
     "uncertainties": "Was unsicher bleibt",
     "retake": "Neue Aufnahme machen",
@@ -374,7 +400,11 @@
     "markDone": "Erledigt",
     "undo": "Rückgängig",
     "rate": "Wie lief es?",
-    "ratings": { "works": "Klappt", "partial": "Teilweise", "not_yet": "Klappt noch nicht" },
+    "ratings": {
+      "works": "Klappt",
+      "partial": "Teilweise",
+      "not_yet": "Klappt noch nicht"
+    },
     "checkins": "Check-ins",
     "checkinDue": "Fällig am {{date}}",
     "checkinRecord": "Jetzt aufnehmen",
@@ -497,7 +527,8 @@
     "premium": "Premium",
     "admin": "Admin-Bereich",
     "aiNotice": "Analysen, Trainingspläne, Coach-Hinweise und gekennzeichnete Community-Antworten werden mit KI erstellt.",
-    "version": "Version {{version}}"
+    "version": "Version {{version}}",
+    "accountId": "Konto-ID: {{id}}"
   },
   "premium": {
     "title": "Premium",

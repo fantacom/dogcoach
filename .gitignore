@@ -50,3 +50,6 @@ example
 # Supabase CLI
 supabase/.temp/
 supabase/.branches/
+
+# Secrets der Edge Functions
+supabase/.env.functions

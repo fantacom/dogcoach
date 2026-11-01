@@ -1,0 +1,35 @@
+# Smoke-Test: Onboarding → Hund anlegen → Wesens-Fragebogen → Upload-Einstieg
+appId: de.fantacom.dogcoach
+---
+- launchApp:
+    clearState: true
+- assertVisible: 'Ersten Hund anlegen'
+- tapOn:
+    id: 'onboarding-start'
+- tapOn: 'Name'
+- inputText: 'Maestro'
+- tapOn:
+    text: 'Rasse wählen.*'
+- inputText: 'Labrador'
+- tapOn: 'Labrador Retriever'
+- tapOn: 'Hündin'
+- tapOn: 'Geschätzt'
+- tapOn: 'Jahre'
+- inputText: '2'
+- hideKeyboard
+- scrollUntilVisible:
+    element: 'Hund anlegen'
+    direction: DOWN
+- tapOn:
+    text: 'Hund anlegen'
+    index: 1
+- assertVisible: 'Frage 1 von 12'
+- tapOn: 'Fertig'
+- assertVisible: 'Heute mit Maestro'
+- tapOn: 'Analyse'
+- tapOn:
+    id: 'analysis-new'
+- assertVisible: 'Bevor es losgeht'
+- tapOn: 'Einverstanden'
+- assertVisible: 'Video aufnehmen'
+- assertVisible: 'Aus Mediathek wählen'

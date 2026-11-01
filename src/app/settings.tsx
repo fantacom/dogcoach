@@ -238,6 +238,9 @@ export default function SettingsScreen() {
       <Text variant="caption">
         {t('settings.version', { version: Constants.expoConfig?.version ?? '' })}
       </Text>
+      <Text variant="caption" selectable>
+        {t('settings.accountId', { id: session?.user.id ?? '' })}
+      </Text>
     </Screen>
   );
 }
